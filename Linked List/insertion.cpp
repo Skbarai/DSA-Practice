@@ -90,7 +90,54 @@ void searchelement(node* &head,int key)
     }
        if(ptr==NULL)
         cout<<"Not found\n";
-        
+}
+void deletionathead(node*&head)
+{
+    node*ptr=head;
+    if(head==NULL)
+    {
+        cout<<"Empty list"<<endl;
+    }
+    else{
+        head=head->next;
+        delete ptr;
+    }
+}
+void deletionatposition(node* &head,int pos)
+{
+    node*p,*q;
+    p=head;
+    q=head->next;
+    for(int i=1;i<pos-1;i++)
+    {
+        p=p->next;
+        q=q->next;
+    }
+    p->next=q->next;
+    delete q;
+}
+void deletionatend(node* &head)
+{
+    node*ptr=head;
+    node*temp;
+    while(ptr->next!=NULL)
+    { 
+        temp=ptr;
+        ptr=ptr->next;
+    }
+    temp->next=NULL;
+    free(ptr);
+}
+void destroylist(node* &head)
+{
+    node* ptr=head;
+    while(head!=NULL)
+    {
+        head=head->next;
+        delete ptr;
+       ptr=head;
+    }
+    
 }
 int main(){
     node* head=new node(5);
@@ -105,6 +152,12 @@ int main(){
     traversal(head);
     cout<<"Max element= "<<maxelement(head)<<endl;
     searchelement(head,100);
-
-
+    deletionathead(head);
+    deletionatposition(head,4);
+    deletionathead(head);
+    traversal(head);
+    deletionatend(head);
+    traversal(head);
+    destroylist(head);
+    traversal(head);
 }
